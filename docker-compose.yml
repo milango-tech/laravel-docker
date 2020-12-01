@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   php:
-    build: ./docker/php7.4
+    image: repox/laravel-dev-php:8.0
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
@@ -17,7 +17,7 @@ services:
     ports:
       - "6379:6379"
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     links:
       - php
     ports:
@@ -30,14 +30,14 @@ services:
       MYSQL_USER: homestead
       MYSQL_PASSWORD: secret
   composer:
-    build: ./docker/php7.4
+    image: repox/laravel-dev-php:8.0
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
     entrypoint: ['/usr/bin/composer']  
   artisan:
-    build: ./docker/php7.4
+    image: repox/laravel-dev-php:8.0
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
-    entrypoint: ['/bin/bash', '/var/www/html/artisan']
+    entrypoint: ['php', '/var/www/html/artisan']

@@ -25,7 +25,6 @@ repox/laravel-dev-php:latest # Provides the latest PHP version
 
 The PHP images used for this repository is made specifically for developing with Laravel in this context.
 
-
 ### Start the local environment
 
 Starting the environment is prette straight forward.
@@ -47,6 +46,17 @@ You'd might already have things running locally on port 80, which might give you
 
 Left side of the port specification is the Docker host port which maps to the container port specified on the right side.
 
+Hostnames for MySQL and Redis (and other added services) is accessed via their service name.<br>
+The MySQL container has been labeled `db` in `docker-compose.yml` and therefore should the `DB_HOST` parameter in your `.env` file in Laravel reflect this as the hostname:
+
+```ìni
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
 
 ### Stop the environment
 
@@ -58,7 +68,7 @@ $ docker-compose stop
 
 ### Removing the environment
 
-To stop the environment and remove volume data (eg. for starting over):
+To stop the environment and remove volume data and container network (eg. for starting over):
 
 ```bash
 $ docker-compose down -v
@@ -79,3 +89,12 @@ $ docker-compose run composer dump
 
 
 
+## Accessing MySQL
+
+This repository contains a configuration made specifically for allowing you to access it with your favorite client directly from your host by connecting to the exposed port via `127.0.0.1`. As an example:
+
+```bash
+$ mysql -h 127.0.0.1 -p 3306 -u root -proot
+```
+
+Same procedure can be used in ie. Sequel Ace, MySQL Workbench, HeidiSQL or what ever tool you'd might prefer.
