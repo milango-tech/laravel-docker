@@ -1,26 +1,52 @@
 # Docker Compose environment for Laravel
 
-This is a project that you can use in existing projects or new projects.
+This is a project that you can use in existing projects or new projects. 
 
-Download this repository's contents and add the files to the root of your Laravel project.
+[Download](https://github.com/Repox/laravel-docker/archive/master.zip) this repository's contents and add the files to the root of your Laravel project. Discard this `README.md` file to avoid overwriting your own or an existing one.
 
-### Initial run
+## Stack
 
-When running this for the first time in a project, start the environment with the following command:
+The stack is be default configured to the following:
 
-```bash
-$ docker-compose up --build -d
+- PHP 8.0 ([image](https://hub.docker.com/repository/docker/repox/laravel-dev-php))
+- MySQL 8.0 ([image](https://hub.docker.com/_/mysql))
+- Nginx ([image](https://hub.docker.com/_/nginx), latest)
+- Redis ([image](https://hub.docker.com/_/redis), latest)
+- Composer v2 (built into PHP image)
+
+You can use [PHP 7.4 and PHP 7.3](https://hub.docker.com/repository/docker/repox/laravel-dev-php) by specifyng the version tag in `docker-compose.yml` where the `repox/laravel-dev-php` image is referenced; i.e.:
+
+```
+repox/laravel-dev-php:7.3
+repox/laravel-dev-php:7.4
+repox/laravel-dev-php:8.0
+repox/laravel-dev-php:latest # Provides the latest PHP version
 ```
 
-This will ensure the PHP Docker image to build and when completed, it will start the Docker environment.
+The PHP images used for this repository is made specifically for developing with Laravel in this context.
 
-### Start the environment
 
-If you've already built the image, you can just type:
+### Start the local environment
+
+Starting the environment is prette straight forward.
 
 ```bash
 $ docker-compose up -d
 ```
+
+This will have a working environment available at [http://localhost](http://localhost)
+
+You'd might already have things running locally on port 80, which might give you some errors. In that case it might be beneficial to change the exposed port to something like `8000` or `8080`. I just chose `80` for my own convenience. Exposing the `nginx` service on port `8000` instead would mean that you configure the `docker-compose.yml` and change the `port` configuration to something like the following:
+
+```yaml
+  nginx:
+    image: nginx
+    ports:
+      - "8000:80"
+```
+
+Left side of the port specification is the Docker host port which maps to the container port specified on the right side.
+
 
 ### Stop the environment
 
@@ -40,7 +66,7 @@ $ docker-compose down -v
 
 ##Helping commands
 
-There's been added to containers that can interact directly with the environment to utilize Composer and Artisan within the docker network.
+There's been added some containers that can interact directly with the environment to utilize Composer and Artisan within the docker network.
 
 Examples:
 
