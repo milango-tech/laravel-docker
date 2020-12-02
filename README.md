@@ -8,13 +8,13 @@ This is a project that you can use in existing projects or new projects.
 
 The stack is be default configured to the following:
 
-- PHP 8.0 ([image](https://hub.docker.com/repository/docker/repox/laravel-dev-php))
+- PHP 8.0 ([image](https://hub.docker.com/r/repox/laravel-dev-php))
 - MySQL 8.0 ([image](https://hub.docker.com/_/mysql))
 - Nginx ([image](https://hub.docker.com/_/nginx), latest)
 - Redis ([image](https://hub.docker.com/_/redis), latest)
 - Composer v2 (built into PHP image)
 
-You can use [PHP 7.4 and PHP 7.3](https://hub.docker.com/repository/docker/repox/laravel-dev-php) by specifyng the version tag in `docker-compose.yml` where the `repox/laravel-dev-php` image is referenced; i.e.:
+You can use [PHP 7.4 and PHP 7.3](hhttps://hub.docker.com/r/repox/laravel-dev-php) by specifyng the version tag in `docker-compose.yml` where the `repox/laravel-dev-php` image is referenced; i.e.:
 
 ```
 repox/laravel-dev-php:7.3
